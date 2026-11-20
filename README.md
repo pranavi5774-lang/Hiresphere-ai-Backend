@@ -24,18 +24,20 @@ The AI-Powered Recruitment Management System is designed to simplify and improve
 
 ## 📂 Project Structure
 ```text
-backend/
-├── app/
-│   └── api/
-├── prisma/
-│   └── schema.prisma
-├── public/
+.
+├── src/
+│   ├── app/api/           # Next.js Route Handlers
+│   ├── lib/               # Auth, database, storage, and AI services
+│   └── scripts/seed.ts    # Development seed script
+├── prisma/schema.prisma
+├── scripts/copy-standalone-assets.mjs
 ├── package.json
-├── tsconfig.json
-└── README.md
+├── package-lock.json
+├── next.config.ts
+└── tsconfig.json
 ```
 
-*Note: Update this structure according to the actual backend folder.*
+The repository contains backend routes and shared server libraries only. Frontend components, local databases, uploads, and environment secrets are excluded.
 
 ## ⚙️ Installation and Setup
 
@@ -51,13 +53,13 @@ cd Hiresphere-ai-Backend
 
 ### 3. Install Dependencies
 ```bash
-npm install
+npm ci
 ```
 
 ### 4. Configure Environment Variables
-Create a `.env` file and configure the database connection according to the project's Prisma setup.
+Copy `.env.example` to `.env` and set your own secrets and API key. Do not commit `.env`.
 
-Example:
+The default SQLite connection is:
 ```env
 DATABASE_URL="file:./dev.db"
 ```
@@ -65,6 +67,11 @@ DATABASE_URL="file:./dev.db"
 ### 5. Generate Prisma Client
 ```bash
 npx prisma generate
+```
+
+For a new local database, apply the schema:
+```bash
+npx prisma db push
 ```
 
 ### 6. Start the Development Server
